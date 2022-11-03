@@ -419,6 +419,7 @@ __metadata:
   dependencies:
     "@preact/preset-vite": ^2.4.0
     autoprefixer: ^10.4.13
+    dayjs: ^1.11.6
     postcss: ^8.4.18
     preact: ^10.11.2
     tailwindcss: ^3.2.1
@@ -848,6 +849,13 @@ __metadata:
   bin:
     cssesc: bin/cssesc
   checksum: f8c4ababffbc5e2ddf2fa9957dda1ee4af6048e22aeda1869d0d00843223c1b13ad3f5d88b51caa46c994225eacb636b764eb807a8883e2fb6f99b4f4e8c48b2
+  languageName: node
+  linkType: hard
+
+"dayjs@npm:^1.11.6":
+  version: 1.11.6
+  resolution: "dayjs@npm:1.11.6"
+  checksum: 18bdfd927009b68eab08dca578e421d4a581cefcbe9337f54c5d9e0d941ffb6b221c4b2c1cab15cdd9d419940e768ac4c984531461a90bbe1c158b75fe160580
   languageName: node
   linkType: hard
 
