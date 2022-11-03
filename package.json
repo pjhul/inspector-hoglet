@@ -1,0 +1,7 @@
+{
+  "name": "@posthog/inspector-hoglet",
+  "workspaces": [
+    "./packages/*"
+  ],
+  "packageManager": "yarn@3.2.4"
+}
