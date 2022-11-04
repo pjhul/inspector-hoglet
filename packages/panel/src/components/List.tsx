@@ -1,11 +1,10 @@
-import { FunctionComponent } from "preact";
-
 type ListProps = {
-  classes?: string;
+  className?: string;
+  children: React.ReactNode;
 };
 
-const List: FunctionComponent<ListProps> = ({ classes = "", children }) => {
-  return <ul class={`mx-2 ${classes}`}>{children}</ul>;
+const List: React.FC<ListProps> = ({ className = "", children }) => {
+  return <ul className={`mx-2 ${className}`}>{children}</ul>;
 };
 
 export default List;

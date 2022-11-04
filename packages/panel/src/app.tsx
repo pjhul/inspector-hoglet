@@ -1,4 +1,4 @@
-import { useState, useEffect } from "preact/hooks";
+import { useState, useEffect } from "react";
 
 import Login from "./components/Login";
 import { UserProvider, useUser } from "./components/UserProvider";
@@ -9,8 +9,8 @@ import logo from "./assets/posthog.svg";
 export function App() {
   const { user } = useUser();
 
-  const [screen, setScreen] = useState<"login" /*| "configure"*/ | "main">(
-    !user ? "login" : "main"
+  const [screen, setScreen] = useState<"login" | "configure" | "main">(
+    !user ? "login" : "configure"
   );
   const [panelOpen, setPanelOpen] = useState(true);
   const [query, setQuery] = useState("");
@@ -54,23 +54,25 @@ export function App() {
       <UserProvider>
         {screen === "login" ? (
           <Login next={() => setScreen("main")} />
+        ) : screen === "configure" ? (
+          <div>Test</div>
         ) : (
           <div
-            class={`w-full h-full flex flex-col border-l shadow-md transform transition-transform bg-white ${
+            className={`w-full h-full flex flex-col border-l shadow-md transform transition-transform bg-white ${
               panelOpen ? "" : "translate-x-full"
             }`}
           >
-            <div class="px-2 py-3">
-              <div class="flex items-center space-x-2">
-                <img src={logo} class="w-6 h-6" />
+            <div className="px-2 py-3">
+              <div className="flex items-center space-x-2">
+                <img src={logo} className="w-6 h-6" />
                 <span>PostHog App + Website</span>
               </div>
 
               <form onSubmit={handleSubmit}>
-                <div class="flex items-center">
+                <div className="flex items-center">
                   <input
                     type="text"
-                    class="flex-grow border p-1"
+                    className="flex-grow border p-1"
                     value={query}
                     onInput={(event) =>
                       setQuery((event.target as HTMLInputElement).value)
@@ -81,15 +83,19 @@ export function App() {
               </form>
             </div>
 
-            <ul class="divide-y overflow-y-scroll flex-grow overscroll-y-contain">
-              {persons.map((person) => {
-                return (
-                  <li>
-                    <Person person={person} />
-                  </li>
-                );
-              })}
-            </ul>
+            {persons.length === 1 ? (
+              <Person person={persons[0]} />
+            ) : (
+              <ul className="divide-y overflow-y-scroll flex-grow overscroll-y-contain">
+                {persons.map((person) => {
+                  return (
+                    <li>
+                      <Person person={person} />
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </div>
         )}
       </UserProvider>

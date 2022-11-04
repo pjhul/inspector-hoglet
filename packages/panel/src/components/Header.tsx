@@ -1,9 +1,7 @@
-import { FunctionComponent } from "preact";
-
-const Header: FunctionComponent = ({ children }) => {
+const Header: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <header>
-      <h3 class="bg-light-gray rounded-sm px-2">{children}</h3>
+      <h3 className="bg-light-gray rounded-sm px-2">{children}</h3>
     </header>
   );
 };

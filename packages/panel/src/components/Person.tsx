@@ -1,5 +1,4 @@
-import { useState, useEffect } from "preact/hooks";
-import { FunctionComponent } from "preact";
+import { useState, useEffect } from "react";
 
 import expand from "../assets/expand.svg";
 import collapse from "../assets/collapse.svg";
@@ -42,7 +41,7 @@ export type Event = {
   properties: Record<string, any>;
 };
 
-const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
+const Person: React.FC<{ person: PersonData }> = ({ person }) => {
   const { user } = useUser();
 
   const [expanded, setExpanded] = useState(false);
@@ -86,13 +85,13 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
 
   return user ? (
     <div key={person.id}>
-      <div class="flex items-center space-x-2 py-2 px-3">
+      <div className="flex items-center space-x-2 py-2 px-3">
         <button
-          class="shrink-0"
+          className="shrink-0"
           onClick={() => setExpanded((expanded) => !expanded)}
         >
-          <img src={expanded ? collapse : expand} class="w-6 h-6" />
-          <span class="sr-only">Expand person</span>
+          <img src={expanded ? collapse : expand} className="w-6 h-6" />
+          <span className="sr-only">Expand person</span>
         </button>
         <div>
           <a href={`${user.url}/person/${person.distinct_ids[0]}`}>
@@ -103,10 +102,10 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
       </div>
 
       {expanded && (
-        <div class="space-y-2">
+        <div className="space-y-2">
           <Section>
             <Header>Properties (temp hidden)</Header>
-            <List classes="hidden">
+            <List className="hidden">
               {Object.entries(person.properties).map(([key, value]) => {
                 if (typeof value !== "object") {
                   return (

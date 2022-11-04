@@ -1,5 +1,4 @@
-import { createContext, FunctionComponent } from "preact";
-import { useState, useContext, useEffect } from "preact/hooks";
+import { createContext, useState, useContext, useEffect } from "react";
 
 const USER_KEY = "posthog@@user";
 
@@ -25,7 +24,9 @@ export const UserContext = createContext<ContextValue>({
   updateUser: () => {},
 });
 
-export const UserProvider: FunctionComponent = ({ children }) => {
+export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [user, setUser] = useState<User | undefined>(readUser());
 
   const updateUser = (values: User) => {

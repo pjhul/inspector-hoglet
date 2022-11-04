@@ -1,4 +1,3 @@
-import { FunctionComponent } from "preact";
 import Header from "./Header";
 import Section from "./Section";
 import List from "./List";
@@ -16,7 +15,7 @@ export type FeatureFlagsData = Record<
   }
 >;
 
-const FeatureFlags: FunctionComponent<{
+const FeatureFlags: React.FC<{
   featureFlags: FeatureFlagsData | undefined;
 }> = ({ featureFlags }) => {
   return (

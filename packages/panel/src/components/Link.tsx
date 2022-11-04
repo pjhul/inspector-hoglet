@@ -1,21 +1,20 @@
-import { FunctionComponent } from "preact"
-
 interface Props {
-  to: string
-  classes?: string
-  external?: boolean
+  to: string;
+  className?: string;
+  external?: boolean;
+  children: React.ReactNode;
 }
 
-const Link: FunctionComponent<Props> = ({ to, external, classes, children }) => {
+const Link: React.FC<Props> = ({ to, external, className, children }) => {
   return (
-    <a 
+    <a
       href={to}
       target={external ? "_blank" : undefined}
-      class="text-blue-500 flex w-full p-1 rounded-sm hover:bg-light-gray"
+      className={`text-blue-500 flex w-full p-1 rounded-sm hover:bg-light-gray ${className}`}
     >
       {children}
     </a>
-  )
-}
+  );
+};
 
-export default Link
+export default Link;
