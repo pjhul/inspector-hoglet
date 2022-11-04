@@ -93,9 +93,10 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
           <img src={expanded ? collapse : expand} className="w-6 h-6" />
           <span className="sr-only">Expand person</span>
         </button>
-        <div>
-          <a href={`${user.url}/person/${person.distinct_ids[0]}`} className="font-semibold text-sm">
-            {person.name}
+        <div onClick={() => setExpanded((expanded) => !expanded)} className="cursor-pointer">
+          <span className="text-[15px]">{person.name}</span>
+          <a href={`${user.url}/person/${person.distinct_ids[0]}`} className="font-semibold text-sm ml-0.5 mt-1 text-black/30 hover:text-black/60 p-0.5 hover:bg-accent/20 rounded-sm">
+            <span className="inline-block -rotate-45">→</span>
           </a>
           <p className="text-xs font-code opacity-60">
             {person.distinct_ids[0]}
