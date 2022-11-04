@@ -94,7 +94,7 @@ export function App() {
             {persons.length === 1 ? (
               <Person person={persons[0]} />
             ) : (
-              <ul className="divide-y overflow-y-scroll flex-grow overscroll-y-contain py-3">
+              <ul className="divide-y overflow-y-scroll flex-grow overscroll-y-contain">
                 {persons.map((person) => {
                   return (
                     <li>
