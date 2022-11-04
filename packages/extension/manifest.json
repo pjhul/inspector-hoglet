@@ -5,5 +5,6 @@
   "background": {
     "service_worker": "background.js"
   },
-  "permissions": ["contextMenus", "scripting", "activeTab"]
+  "permissions": ["contextMenus", "scripting", "activeTab", "tabs"],
+  "action": {}
 }

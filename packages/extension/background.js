@@ -38,3 +38,27 @@ chrome.runtime.onMessage.addListener((message) => {
   } else if (message.type === "get-defs") {
   }
 });
+
+chrome.action.onClicked.addListener(tab => {
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id, allFrames: false },
+    func: () => {
+      if (!document.getElementById("posthog-panel")) {
+        const frame = document.createElement("iframe");
+        
+        frame.src = "https://inspector-hoglet.vercel.app/";
+        frame.id = "posthog-panel";
+        frame.style.width = "400px";
+        frame.style.position = "fixed";
+        frame.style.right = 0;
+        frame.style.top = 0;
+        frame.style.bottom = 0;
+        frame.style.height = "100%";
+        frame.style.border = "";
+        frame.style.zIndex = 99999;
+
+        document.body.appendChild(frame);
+      }
+    },
+  });
+});
