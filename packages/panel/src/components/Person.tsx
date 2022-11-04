@@ -5,6 +5,9 @@ import expand from "../assets/expand.svg";
 import collapse from "../assets/collapse.svg";
 
 import FeatureFlags, { FeatureFlagsData } from "./FeatureFlags";
+import Section from "./Section";
+import Header from "./Header";
+import List from "./List";
 
 import { useUser } from "./UserProvider";
 import { humanFriendlyDetailedTime } from "../utils";
@@ -99,9 +102,9 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
 
       {expanded && (
         <div class="space-y-2">
-          <div>
-            <span>Properties (temp hidden)</span>
-            <ul class="pl-6 pr-3 py-2 bg-gray-100 border-t hidden">
+          <Section>
+            <Header>Properties (temp hidden)</Header>
+            <List classes="hidden">
               {Object.entries(person.properties).map(([key, value]) => {
                 if (typeof value !== "object") {
                   return (
@@ -112,15 +115,15 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
                   );
                 }
               })}
-            </ul>
-          </div>
+            </List>
+          </Section>
 
           <FeatureFlags featureFlags={featureFlags} />
 
-          <div>
-            <span>Recordings</span>
+          <Section>
+            <Header>Recordings</Header>
             {recordings.length ? (
-              <ul class="pl-6 pr-3 py-2 bg-gray-100 border-t">
+              <List>
                 {recordings.map((recording) => {
                   return (
                     <li class="flex items-center justify-between">
@@ -138,14 +141,14 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
                     </li>
                   );
                 })}
-              </ul>
+              </List>
             ) : null}
-          </div>
+          </Section>
 
-          <div>
-            <span>Events</span>
+          <Section>
+            <Header>Events</Header>
             {events.length ? (
-              <ul class="pl-6 pr-3 py-2 bg-gray-100 border-t">
+              <List>
                 {events.map((event) => {
                   return (
                     <li class="flex items-center justify-between">
@@ -155,9 +158,9 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
                     </li>
                   );
                 })}
-              </ul>
+              </List>
             ) : null}
-          </div>
+          </Section>
         </div>
       )}
     </div>
