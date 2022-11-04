@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import Login from "./components/Login";
+import Configure from "./components/Configure";
 import { UserProvider, useUser } from "./components/UserProvider";
 import Person, { PersonData } from "./components/Person";
 
@@ -55,7 +56,7 @@ export function App() {
         {screen === "login" ? (
           <Login next={() => setScreen("main")} />
         ) : screen === "configure" ? (
-          <div>Test</div>
+          <Configure />
         ) : (
           <div
             className={`w-full h-full flex flex-col border-l shadow-md transform transition-transform bg-white ${

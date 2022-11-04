@@ -1,5 +1,11 @@
+import TaxonomicFilter from "./TaxonomicFilter";
+
 const Configure: React.FC = () => {
-  return <div></div>;
+  return (
+    <div>
+      <TaxonomicFilter />
+    </div>
+  );
 };
 
 export default Configure;
