@@ -9,6 +9,7 @@ import Header from "./Header";
 import List from "./List";
 import ListItem from "./ListItem";
 import Link from "./Link";
+import Event from "./Event";
 
 import { useUser } from "./UserProvider";
 import { humanFriendlyDetailedTime } from "../utils";
@@ -133,7 +134,9 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
           <FeatureFlags featureFlags={featureFlags} />
 
           <Section>
-            <Header>Recordings</Header>
+            <Header link="#">
+            Recordings
+            </Header>
             {recordings.length ? (
               <List>
                 {recordings.map((recording) => {
@@ -158,15 +161,17 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
           </Section>
 
           <Section>
-            <Header>Events</Header>
+            <Header>
+              Events
+            </Header>
             {events.length ? (
               <List>
                 {events.map((event) => {
                   return (
                     <ListItem event>
-                      <Link to="#" external event classes="text-xs">
+                      <Event>
                         {event.event}
-                      </Link>
+                      </Event>
                     </ListItem>
                   );
                 })}
