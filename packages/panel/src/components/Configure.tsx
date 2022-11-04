@@ -77,7 +77,7 @@ const Configure: React.FC<ConfigureProps> = ({ next }) => {
   };
 
   return (
-    <div className="h-full pt-32 flex flex-col space-y-6 bg-gray-light">
+    <div className="h-full pt-32 flex flex-col space-y-6 bg-light-gray">
       <div className="space-y-1">
         <h1 className="text-2xl font-bold">
           Which properties are important to you?
@@ -102,7 +102,7 @@ const Configure: React.FC<ConfigureProps> = ({ next }) => {
 
         <button
           type="submit"
-          className="bg-blue-500 rounded w-full py-2 text-white disabled:bg-blue-200 mt-10"
+          className="bg-blue-500 rounded w-full py-2 text-white disabled:bg-blue-200 mt-10 box-border"
         >
           Next
         </button>
