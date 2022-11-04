@@ -91,7 +91,7 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
     <div key={person.id}>
       <div className="flex items-center space-x-2 py-2 px-3">
         <button
-          className="shrink-0"
+          className="shrink-0 hover:bg-accent/5 active:bg-accent/10 rounded p-1"
           onClick={() => setExpanded((expanded) => !expanded)}
         >
           <img src={expanded ? collapse : expand} className="w-6 h-6" />
