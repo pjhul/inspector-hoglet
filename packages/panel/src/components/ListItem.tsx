@@ -1,14 +1,20 @@
 import cntl from "cntl";
 
+const baseStyles = cntl`
+  text-sm
+  py-[1px]
+  border-t 
+  border-solid 
+  border-light-gray
+  first:border-t-0
+  mt-[1px]
+  first:mt-0
+`
+
 const rowStyles = cntl`
   flex 
   items-center 
   justify-between 
-  mt-[1px]
-  border-t 
-  border-solid 
-  border-light-gray 
-  py-1
 `;
 const ListItem: React.FC<any> = ({
   children,
@@ -19,17 +25,17 @@ const ListItem: React.FC<any> = ({
   event,
 }) => {
   return property ? (
-    <li className={`${rowStyles} ${classes}`}>{children}</li>
+    <li className={`${baseStyles} ${rowStyles} ${classes}`}>{children}</li>
   ) : flag ? (
-    <li className="flex items-center justify-between mt-[1px]">{children}</li>
+    <li className={`${baseStyles} ${classes}`}>{children}</li>
   ) : recording ? (
-    <li className="flex items-center justify-between mt-[1px]">{children}</li>
+    <li className={`${baseStyles} ${classes}`}>{children}</li>
   ) : event ? (
-    <li className="flex items-center justify-between mt-[1px] font-code text-sm border-t border-solid border-light-gray">
+    <li className={`${baseStyles} font-code border-t border-solid border-light-gray ${classes}`}>
       {children}
     </li>
   ) : (
-    <li className="flex items-center justify-between mt-[1px]">{children}</li>
+    <li className={`${rowStyles} ${classes} text-red`}>{children}</li>
   );
 };
 

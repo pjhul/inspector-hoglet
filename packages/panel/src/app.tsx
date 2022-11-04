@@ -59,7 +59,7 @@ export function App() {
           <Configure />
         ) : (
           <div
-            className={`w-full h-full flex flex-col border-l shadow-md transform transition-transform bg-white ${
+            className={`w-full h-full flex flex-col border-l shadow-md transform transition-transform bg-light-gray ${
               panelOpen ? "" : "translate-x-full"
             }`}
           >

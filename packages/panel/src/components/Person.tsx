@@ -94,7 +94,7 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
           <span className="sr-only">Expand person</span>
         </button>
         <div>
-          <a href={`${user.url}/person/${person.distinct_ids[0]}`}>
+          <a href={`${user.url}/person/${person.distinct_ids[0]}`} className="font-semibold text-sm">
             {person.name}
           </a>
           <p className="text-xs font-code opacity-60">
@@ -129,11 +129,11 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
               <List>
                 {recordings.map((recording) => {
                   return (
-                    <ListItem>
+                    <ListItem recording>
                       <Link
                         to={`${user.url}/person/${person.distinct_ids[0]}#activeTab=sessionRecordings&sessionRecordingId=${recording.id}`}
-                        external
                         recording
+                        external
                       >
                         {humanFriendlyDetailedTime(
                           recording.start_time,
@@ -155,7 +155,7 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
                 {events.map((event) => {
                   return (
                     <ListItem event>
-                      <Link to="#" external event>
+                      <Link to="#" external event classes="text-xs">
                         {event.event}
                       </Link>
                     </ListItem>

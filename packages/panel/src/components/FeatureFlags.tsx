@@ -27,8 +27,8 @@ const FeatureFlags: React.FC<{
             .slice(0, 5)
             .map(([key, value]) => {
               return (
-                <ListItem>
-                  <Link to="#" external flag>
+                <ListItem flag>
+                  <Link to="#" flag external>
                     {key}
                   </Link>
                 </ListItem>
