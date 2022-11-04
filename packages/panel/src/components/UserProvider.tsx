@@ -5,7 +5,8 @@ const USER_KEY = "posthog@@user";
 type User = {
   apiKey: string;
   url: string;
-  personProps: string[] | undefined
+  personProps: string[] | undefined;
+  groupProps: Record<string, string[]> | undefined;
 };
 
 type ContextValue = {

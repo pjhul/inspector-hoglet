@@ -35,6 +35,16 @@ export type Recording = {
   end_time: string;
 };
 
+export type Group = {
+  id: string;
+  type: string;
+  name: string;
+  group_type_index: number;
+  group_key: string;
+  created_at: string;
+  properties: Record<string, any>;
+};
+
 export type Event = {
   distinct_id: string;
   event: string;
@@ -56,6 +66,7 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
   >(undefined);
   const [recordings, setRecordings] = useState<Recording[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
+  const [groups, setGroups] = useState<Group[]>([]);
 
   useEffect(() => {
     if (expanded && user) {
@@ -85,6 +96,30 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
           .then((res) => res.json())
           .then((data) => setEvents(data.results));
       }
+
+      if (!groups.length) {
+        fetch(`${user.url}/api/projects/@current/groups_types`, {
+          headers: { Authorization: `Bearer ${user.apiKey}` },
+        })
+          .then((res) => res.json())
+          .then((groupTypes) => {
+            fetch(
+              `${user.url}/api/projects/@current/groups/related?id=${person.id}`,
+              { headers: { Authorization: `Bearer ${user.apiKey}` } }
+            )
+              .then((res) => res.json())
+              .then((data) =>
+                setGroups(
+                  data.map((group: any) => {
+                    return {
+                      ...group,
+                      name: groupTypes[group.group_type_index].name_plural,
+                    };
+                  })
+                )
+              );
+          });
+      }
     }
   }, [expanded]);
 
@@ -98,9 +133,15 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
           <img src={expanded ? collapse : expand} className="w-6 h-6" />
           <span className="sr-only">Expand person</span>
         </button>
-        <div onClick={() => setExpanded((expanded) => !expanded)} className="cursor-pointer">
+        <div
+          onClick={() => setExpanded((expanded) => !expanded)}
+          className="cursor-pointer"
+        >
           <span className="text-[15px]">{person.name}</span>
-          <a href={`${user.url}/person/${person.distinct_ids[0]}`} className="font-semibold text-sm ml-0.5 mt-1 text-black/30 hover:text-black/60 p-0.5 hover:bg-accent/20 rounded-sm">
+          <a
+            href={`${user.url}/person/${person.distinct_ids[0]}`}
+            className="font-semibold text-sm ml-0.5 mt-1 text-black/30 hover:text-black/60 p-0.5 hover:bg-accent/20 rounded-sm"
+          >
             <span className="inline-block -rotate-45">→</span>
           </a>
           <p className="text-xs font-code opacity-60">
@@ -131,12 +172,54 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
             </List>
           </Section>
 
+          {groups.map((group) => {
+            return (
+              <Section>
+                <Header>{group.name.charAt(0).toUpperCase() + group.name.slice(1)}</Header>
+                <List>
+                  <ListItem>
+                    <div className="w-full flex flex-col items-stretch">
+                      <div className="w-full flex items-center justify-between border-b py-1">
+                        <Link
+                          external
+                          to={`${user.url}/groups/${group.group_type_index}/${group.id}`}
+                        >
+                          {group.properties?.name || group.id}
+                        </Link>
+                      </div>
+
+                      {user.groupProps?.[group.group_type_index] ? (
+                        <ul className="w-full pb-2">
+                          {Object.entries(group.properties)
+                            .filter(
+                              ([key]) =>
+                                user.groupProps?.[
+                                  group.group_type_index
+                                ].indexOf(key) !== -1
+                            )
+                            ?.map(([key, value]) => {
+                              return (
+                                <ListItem property classes="space-x-2">
+                                  <p className="text-xs font-code opacity-70">
+                                    {key}
+                                  </p>
+                                  <p className="text-sm truncate">{value}</p>
+                                </ListItem>
+                              );
+                            })}
+                        </ul>
+                      ) : null}
+                    </div>
+                  </ListItem>
+                </List>
+              </Section>
+            );
+          })}
+
           <FeatureFlags featureFlags={featureFlags} />
 
           <Section>
-            <Header link="#">
-            Recordings
-            </Header>
+            <Header link="#">Recordings</Header>
             {recordings.length ? (
               <List>
                 {recordings.map((recording) => {
@@ -161,17 +244,13 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
           </Section>
 
           <Section>
-            <Header>
-              Events
-            </Header>
+            <Header>Events</Header>
             {events.length ? (
               <List>
                 {events.map((event) => {
                   return (
                     <ListItem event>
-                      <Event>
-                        {event.event}
-                      </Event>
+                      <Event>{event.event}</Event>
                     </ListItem>
                   );
                 })}

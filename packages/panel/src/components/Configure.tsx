@@ -30,6 +30,10 @@ const Configure: React.FC<ConfigureProps> = ({ next }) => {
   const [definitions, setDefinitions] = useState<PersonProperty[]>([]);
   const [groups, setGroups] = useState<Group[]>([]);
 
+  const [groupProperties, setGroupProperties] = useState<
+    Record<string, string[]>
+  >({});
+
   const { user, updateUser } = useUser();
 
   useEffect(() => {
@@ -62,7 +66,8 @@ const Configure: React.FC<ConfigureProps> = ({ next }) => {
                 })
               );
             });
-        });
+        })
+        .catch((err) => console.error(err));
     }
   }, [user]);
 
@@ -71,23 +76,27 @@ const Configure: React.FC<ConfigureProps> = ({ next }) => {
 
     updateUser({
       personProps: personProperties.map((prop) => prop.name),
+      groupProps: groupProperties
     } as any);
 
     next();
   };
 
   return (
-    <div className="h-full pt-32 flex flex-col space-y-6 px-6 bg-light-gray">
+    <div className="py-32 flex flex-col space-y-6 px-6 bg-light-gray">
       <div className="space-y-1">
         <h1 className="text-2xl font-bold">
           Which properties are important to you?
         </h1>
         <p className="text-black/70">
-          Just choose the ones with helpful context when talking to customers. (You can change these later.)</p>
+          Just choose the ones with helpful context when talking to customers.
+          (You can change these later.)
+        </p>
       </div>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="space-y-6">
         <TaxonomicFilter
+          label="Key person properties"
           values={definitions}
           selected={personProperties}
           onChange={setPersonProperties}
@@ -97,6 +106,31 @@ const Configure: React.FC<ConfigureProps> = ({ next }) => {
             value.name.toLowerCase().includes(query.toLocaleLowerCase())
           }
         />
+
+        {groups.map((group) => {
+          return (
+            <TaxonomicFilter
+              label={`Key ${group.group_type} properties`}
+              placeholder={`Search ${group.group_type} properties...`}
+              values={group.properties.map(({ name }) => name)}
+              selected={
+                groupProperties[group.group_type_index.toString()] || []
+              }
+              onChange={(values) =>
+                setGroupProperties((groups) => {
+                  return {
+                    ...groups,
+                    [group.group_type_index.toString()]: values,
+                  };
+                })
+              }
+              displayValue={(def) => def}
+              filter={(query, value) =>
+                value.toLowerCase().includes(query.toLocaleLowerCase())
+              }
+            />
+          );
+        })}
 
         <button
           type="submit"

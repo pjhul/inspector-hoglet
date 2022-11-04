@@ -27,9 +27,10 @@ const Login: React.FC<LoginProps> = ({ next }) => {
     event.preventDefault();
 
     updateUser({
-      url: "https://" + host,
+      url: "https://" + (host.slice(-1) === "/" ? host.slice(0, -1) : host),
       apiKey,
       personProps: undefined,
+      groupProps: undefined,
     });
 
     next();
@@ -119,18 +120,22 @@ const Login: React.FC<LoginProps> = ({ next }) => {
             <p className="mt-2 text-sm text-gray-500" id="email-description">
               Get one at{" "}
               {location === "self-hosted" ? (
-                <Link to="https://app.posthog.com/me/settings">
-                  {host}/me/settings
+                <Link
+                  to={`https://${host}/me/settings#personal-api-keys`}
+                  external
+                >
+                  https://{host}/me/settings
                 </Link>
               ) : (
                 <Link to="https://app.posthog.com/me/settings" external>
-                  app.posthog.com/me/settings
+                  https://app.posthog.com/me/settings
                 </Link>
               )}
             </p>
           </div>
         </div>
 
+        {/* TODO: Hit the API to make sure everything is valid before coninuing */}
         <button
           disabled={!(location && host && apiKey)}
           className="bg-blue-500 rounded w-full py-2 text-white disabled:bg-blue-200"

@@ -7,6 +7,7 @@ function classNames(...classes: any[]) {
 }
 
 type TaxonomicFilterProps<T> = {
+  label: string;
   values: T[];
   selected: T[];
   placeholder?: string;
@@ -32,14 +33,23 @@ function TaxonomicFilter<T>(props: TaxonomicFilterProps<T>) {
         multiple
       >
         <Combobox.Label className="block text-sm mb-1 font-medium text-gray-700">
-          Key person properties
+          {props.label}
         </Combobox.Label>
-        <ul className="border border-accent border-solid bg-light-gray rounded p-2 h-[80px] overflow-auto relative before:absolute before:left-0 before:top-0 empty:before:content-['No_properties_selected...'] before:text-black/50 before:text-sm before:p-2 before:italic">
-          {props.selected.map((value) => {
-            return (
-              <li key={props.displayValue(value)} className="font-code text-xs">{props.displayValue(value)}</li>
-            );
-          })}
+        <ul className="border border-accent border-solid bg-light-gray rounded p-2 overflow-auto relative">
+          {props.selected.length === 0 ? (
+            <div className="text-xs">No props selected yet...</div>
+          ) : (
+            props.selected.map((value) => {
+              return (
+                <li
+                  key={props.displayValue(value)}
+                  className="font-code text-xs"
+                >
+                  {props.displayValue(value)}
+                </li>
+              );
+            })
+          )}
         </ul>
         <div className="relative mt-1">
           <Combobox.Button className="w-full">
@@ -47,7 +57,6 @@ function TaxonomicFilter<T>(props: TaxonomicFilterProps<T>) {
               className="w-full rounded-sm border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
               onChange={(event) => setQuery(event.target.value)}
               placeholder={props.placeholder}
-              displayValue={props.displayValue}
             />
             <ChevronUpDownIcon
               className="h-5 w-5 text-gray-400 absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none"
