@@ -4,8 +4,8 @@ import TaxonomicFilter from "./TaxonomicFilter";
 import { useUser } from "./UserProvider";
 
 type ConfigureProps = {
-  next: () => void
-}
+  next: () => void;
+};
 
 type PersonProperty = {
   name: string;
@@ -67,17 +67,17 @@ const Configure: React.FC<ConfigureProps> = ({ next }) => {
   }, [user]);
 
   const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault()
+    event.preventDefault();
 
     updateUser({
-      personProps: personProperties.map(prop => prop.name)
-    } as any)
+      personProps: personProperties.map((prop) => prop.name),
+    } as any);
 
-    next()
-  }
+    next();
+  };
 
   return (
-    <div className="h-full pt-32 flex flex-col space-y-6">
+    <div className="h-full pt-32 flex flex-col space-y-6 bg-gray-light">
       <div className="space-y-1">
         <h1 className="text-2xl font-bold">
           Which properties are important to you?

@@ -29,14 +29,14 @@ const Login: React.FC<LoginProps> = ({ next }) => {
     updateUser({
       url: "https://" + host,
       apiKey,
-      personProps: undefined
+      personProps: undefined,
     });
 
     next();
   };
 
   return (
-    <div className="h-full px-6 flex flex-col justify-center">
+    <div className="h-full px-6 flex flex-col justify-center bg-gray-light">
       <form onSubmit={handleSubmit} className="space-y-8">
         <div className="space-y-2">
           <Hoglet className="w-8 h-8" />
