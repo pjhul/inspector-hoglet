@@ -476,6 +476,7 @@ __metadata:
     "@types/react-dom": ^18.0.8
     "@vitejs/plugin-react": ^2.2.0
     autoprefixer: ^10.4.13
+    cntl: ^1.0.0
     dayjs: ^1.11.6
     kea: ^3.0.4
     postcss: ^8.4.18
@@ -819,9 +820,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.30001400, caniuse-lite@npm:^1.0.30001426":
-  version: 1.0.30001429
-  resolution: "caniuse-lite@npm:1.0.30001429"
-  checksum: d1658080248ef5ef0f5157423b2766026e6aa45642ce3b2cc74859b6a54e39881dd902397a2368324ed30ed0cd40250f11a4a4f3773453cd57b88db5e5e5c76a
+  version: 1.0.30001430
+  resolution: "caniuse-lite@npm:1.0.30001430"
+  checksum: 15200fe2658871807341a451b01e3d6ae2bf5e0e30b60af86e1e8d9e1655a5f5011bb23fdc3d6b696019d63d3e60ad6864b15c40c80c538c4500ac5098b9701b
   languageName: node
   linkType: hard
 
@@ -873,6 +874,13 @@ __metadata:
   version: 0.0.1
   resolution: "client-only@npm:0.0.1"
   checksum: 0c16bf660dadb90610553c1d8946a7fdfb81d624adea073b8440b7d795d5b5b08beb3c950c6a2cf16279365a3265158a236876d92bce16423c485c322d7dfaf8
+  languageName: node
+  linkType: hard
+
+"cntl@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "cntl@npm:1.0.0"
+  checksum: 7b3269437acd7427c9480c58d45de0ca9d0a1df844725c9b3601e6e1b88b48e96646c5b4f52c988d8cfd553ed9c1c64c6cc9f58d5b41b227363cf8c7ae995529
   languageName: node
   linkType: hard
 

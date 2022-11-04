@@ -97,7 +97,7 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
           <a href={`${user.url}/person/${person.distinct_ids[0]}`}>
             {person.name}
           </a>
-          <p>{person.distinct_ids[0]}</p>
+          <p class="text-xs font-code opacity-60">{person.distinct_ids[0]}</p>
         </div>
       </div>
 
@@ -109,9 +109,9 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
               {Object.entries(person.properties).map(([key, value]) => {
                 if (typeof value !== "object") {
                   return (
-                    <ListItem>
-                      <p>{key}</p>
-                      <p>{value}</p>
+                    <ListItem property classes="space-x-2">
+                      <p class="text-xs font-code opacity-70">{key}</p>
+                      <p class="text-sm truncate">{value}</p>
                     </ListItem>
                   );
                 }
@@ -130,7 +130,7 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
                     <ListItem>
                       <Link
                         to={`${user.url}/person/${person.distinct_ids[0]}#activeTab=sessionRecordings&sessionRecordingId=${recording.id}`}
-                        external
+                        external recording
                       >
                         {humanFriendlyDetailedTime(
                           recording.start_time,
@@ -151,8 +151,8 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
               <List>
                 {events.map((event) => {
                   return (
-                    <ListItem>
-                      <Link to="#" external>
+                    <ListItem event>
+                      <Link to="#" external event>
                         {event.event}
                       </Link>
                     </ListItem>

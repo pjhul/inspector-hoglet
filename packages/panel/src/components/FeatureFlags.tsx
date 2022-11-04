@@ -28,7 +28,7 @@ const FeatureFlags: React.FC<{
             .map(([key, value]) => {
               return (
                 <ListItem>
-                  <Link to="#" external>
+                  <Link to="#" external flag>
                     {key}
                   </Link>
                 </ListItem>

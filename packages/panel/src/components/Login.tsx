@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 import { useUser } from "./UserProvider";
+import { Hoglet } from "./Icons";
+import Link from "./Link";
 
 type LoginProps = {
   next: () => void;
@@ -34,15 +36,18 @@ const Login: React.FC<LoginProps> = ({ next }) => {
 
   return (
     <div className="h-full px-6 flex flex-col justify-center">
-      <form onSubmit={handleSubmit} className="space-y-12">
+      <form onSubmit={handleSubmit} className="space-y-8">
         <div className="space-y-2">
+          <Hoglet className="w-8 h-8" />
+
           <h1 className="text-2xl font-bold">Meet Inspector Hoglet</h1>
           <h5>
-            By <a href="https://posthog.com">PostHog</a>
+            by <a href="https://posthog.com">PostHog</a>
           </h5>
 
           <p>
-            He shows important customer info from PostHog on certain websites.
+            He shows important customer info from PostHog on certain websites
+            where you interact with them.
           </p>
         </div>
 
@@ -112,9 +117,15 @@ const Login: React.FC<LoginProps> = ({ next }) => {
             </div>
             <p className="mt-2 text-sm text-gray-500" id="email-description">
               Get one at{" "}
-              <a className="text-blue-500" href="https://app.posthog.com">
-                https://app.posthog.com
-              </a>
+              {location === "self-hosted" ? (
+                <Link to="https://app.posthog.com/me/settings">
+                  {host}/me/settings
+                </Link>
+              ) : (
+                <Link to="https://app.posthog.com/me/settings" external>
+                  app.posthog.com/me/settings
+                </Link>
+              )}
             </p>
           </div>
         </div>
