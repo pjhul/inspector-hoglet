@@ -11,7 +11,7 @@ export function App() {
   const { user } = useUser();
 
   const [screen, setScreen] = useState<"login" | "configure" | "main">(
-    !user ? "login" : "configure"
+    !user ? "login" : "main"
   );
   const [panelOpen, setPanelOpen] = useState(true);
   const [query, setQuery] = useState("");
