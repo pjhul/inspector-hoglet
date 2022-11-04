@@ -25,6 +25,7 @@ function TaxonomicFilter<T>(props: TaxonomicFilterProps<T>) {
 
   return (
     <>
+      
       <Combobox
         as="div"
         value={props.selected}
@@ -34,6 +35,13 @@ function TaxonomicFilter<T>(props: TaxonomicFilterProps<T>) {
         <Combobox.Label className="block text-sm font-medium text-gray-700">
           Key Person Properties
         </Combobox.Label>
+        <ul className="border border-accent border-solid bg-light-gray rounded p-2 h-[80px] overflow-auto relative before:absolute before:left-0 before:top-0 empty:before:content-['Search_for_properties_below...'] before:text-black/50 before:text-sm before:p-2 before:italic">
+          {props.selected.map((value) => {
+            return (
+              <li key={props.displayValue(value)} className="font-code text-xs">{props.displayValue(value)}</li>
+            );
+          })}
+        </ul>
         <div className="relative mt-1">
           <Combobox.Button className="w-full">
             <Combobox.Input
@@ -90,14 +98,6 @@ function TaxonomicFilter<T>(props: TaxonomicFilterProps<T>) {
           )}
         </div>
       </Combobox>
-
-      <ul>
-        {props.selected.map((value) => {
-          return (
-            <li key={props.displayValue(value)}>{props.displayValue(value)}</li>
-          );
-        })}
-      </ul>
     </>
   );
 }
