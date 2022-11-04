@@ -97,7 +97,9 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
           <a href={`${user.url}/person/${person.distinct_ids[0]}`}>
             {person.name}
           </a>
-          <p class="text-xs font-code opacity-60">{person.distinct_ids[0]}</p>
+          <p className="text-xs font-code opacity-60">
+            {person.distinct_ids[0]}
+          </p>
         </div>
       </div>
 
@@ -110,8 +112,8 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
                 if (typeof value !== "object") {
                   return (
                     <ListItem property classes="space-x-2">
-                      <p class="text-xs font-code opacity-70">{key}</p>
-                      <p class="text-sm truncate">{value}</p>
+                      <p className="text-xs font-code opacity-70">{key}</p>
+                      <p className="text-sm truncate">{value}</p>
                     </ListItem>
                   );
                 }
@@ -130,7 +132,8 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
                     <ListItem>
                       <Link
                         to={`${user.url}/person/${person.distinct_ids[0]}#activeTab=sessionRecordings&sessionRecordingId=${recording.id}`}
-                        external recording
+                        external
+                        recording
                       >
                         {humanFriendlyDetailedTime(
                           recording.start_time,
