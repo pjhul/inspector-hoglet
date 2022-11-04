@@ -72,11 +72,11 @@ export function App() {
                     type="text"
                     class="flex-grow border p-1"
                     value={query}
-                    onChange={(event) =>
+                    onInput={(event) =>
                       setQuery((event.target as HTMLInputElement).value)
                     }
                   />
-                  <button>Submit</button>
+                  <button type="submit">Submit</button>
                 </div>
               </form>
             </div>
