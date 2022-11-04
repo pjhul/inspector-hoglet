@@ -16,6 +16,7 @@ export function App() {
   );
   const [panelOpen, setPanelOpen] = useState(true);
   const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const [persons, setPersons] = useState<PersonData[]>([]);
 
@@ -25,12 +26,15 @@ export function App() {
     if (url.has("email") && user) {
       setQuery(url.get("email") as string);
 
+      setLoading(true);
+
       fetch(
         `${user.url}/api/projects/@current/persons?search=${url.get("email")}`,
         { headers: { Authorization: `Bearer ${user.apiKey}` } }
       )
         .then((res) => res.json())
-        .then((data) => setPersons(data.results));
+        .then((data) => setPersons(data.results))
+        .finally(() => setLoading(false));
     }
   }, []);
 
@@ -41,6 +45,8 @@ export function App() {
       return;
     }
 
+    setLoading(true);
+
     const res = await fetch(
       `${user.url}/api/projects/@current/persons?search=${query}`,
       { headers: { Authorization: `Bearer ${user.apiKey}` } }
@@ -49,6 +55,8 @@ export function App() {
     const data = await res.json();
 
     setPersons(data.results);
+
+    setLoading(false);
   };
 
   return (
@@ -64,7 +72,7 @@ export function App() {
               panelOpen ? "" : "translate-x-full"
             }`}
           >
-            <div className="px-2 pt-2">
+            <div className="px-2 py-2 border-b">
               <div className="flex justify-between items-center space-x-2 mb-2">
                 <div className="flex items-center">
                   <span className="w-8 h-8 flex items-center">
@@ -95,7 +103,21 @@ export function App() {
               </form>
             </div>
 
-            {persons.length === 1 ? (
+            {loading ? (
+              <ul className="divide-y">
+                {new Array(8).fill(1).map(() => {
+                  return (
+                    <li className="py-3 px-3">
+                      <div className="w-full rounded py-3 bg-gray-200 animate-pulse" />
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : persons.length === 0 ? (
+              <div className="w-full h-full flex items-center justify-center">
+                No results
+              </div>
+            ) : persons.length === 1 ? (
               <Person person={persons[0]} />
             ) : (
               <ul className="divide-y overflow-y-scroll flex-grow overscroll-y-contain pb-2">
@@ -108,11 +130,6 @@ export function App() {
                 })}
               </ul>
             )}
-
-            <div className="p-2 border-t border-solid border-accent text-sm text-center text-black/60">
-              First seen: 
-              November 4, 2022
-            </div>
           </div>
         )}
       </UserProvider>
