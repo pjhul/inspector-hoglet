@@ -18,6 +18,10 @@ export type FeatureFlagsData = Record<
 const FeatureFlags: React.FC<{
   featureFlags: FeatureFlagsData | undefined;
 }> = ({ featureFlags }) => {
+  const displayFeatureFlagValue = (flag: FeatureFlagsData[string]) => {
+    return typeof flag.value === "boolean" ? JSON.stringify(flag.value) : flag.value
+  }
+
   return (
     <Section>
       <Header>Feature flags</Header>
@@ -29,7 +33,10 @@ const FeatureFlags: React.FC<{
               return (
                 <ListItem flag>
                   <Link to="#" flag external>
-                    {key}
+                    <div className="w-full flex items-center justify-between">
+                      <span className="block">{key}</span>
+                      <span className="block text-gray-800 bg-gray-100 py-0.5 px-1 rounded font-code text-xs">{displayFeatureFlagValue(value)}</span>
+                    </div>
                   </Link>
                 </ListItem>
               );

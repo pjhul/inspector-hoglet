@@ -56,14 +56,14 @@ export function App() {
         {screen === "login" ? (
           <Login next={() => setScreen("configure")} />
         ) : screen === "configure" ? (
-          <Configure next={() => setScreen("main")}/>
+          <Configure next={() => setScreen("main")} />
         ) : (
           <div
             className={`w-full h-full flex flex-col border-l shadow-md transform transition-transform bg-light-gray ${
               panelOpen ? "" : "translate-x-full"
             }`}
           >
-            <div className="px-2 pb-2">
+            <div className="px-2 py-2">
               <div className="flex items-center space-x-2 mb-2">
                 <span className="w-8 h-8 flex items-center">
                   <Logomark />
@@ -84,7 +84,9 @@ export function App() {
                       setQuery((event.target as HTMLInputElement).value)
                     }
                   />
-                  <button type="submit" className="hidden">Submit</button>
+                  <button type="submit" className="hidden">
+                    Submit
+                  </button>
                 </div>
               </form>
             </div>
@@ -92,7 +94,7 @@ export function App() {
             {persons.length === 1 ? (
               <Person person={persons[0]} />
             ) : (
-              <ul className="divide-y overflow-y-scroll flex-grow overscroll-y-contain">
+              <ul className="divide-y overflow-y-scroll flex-grow overscroll-y-contain py-3">
                 {persons.map((person) => {
                   return (
                     <li>
