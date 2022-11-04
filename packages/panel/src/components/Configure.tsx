@@ -77,15 +77,13 @@ const Configure: React.FC<ConfigureProps> = ({ next }) => {
   };
 
   return (
-    <div className="h-full pt-32 flex flex-col space-y-6 bg-light-gray">
+    <div className="h-full pt-32 flex flex-col space-y-6 px-6 bg-light-gray">
       <div className="space-y-1">
         <h1 className="text-2xl font-bold">
           Which properties are important to you?
         </h1>
-        <p>
-          Just choose the ones with helpful context when talking to customers.
-        </p>
-        <p className="text-gray-600">You can change these later</p>
+        <p className="text-black/70">
+          Just choose the ones with helpful context when talking to customers. (You can change these later.)</p>
       </div>
 
       <form onSubmit={handleSubmit}>
