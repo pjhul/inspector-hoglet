@@ -98,7 +98,7 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
           <a href={`${user.url}/person/${person.distinct_ids[0]}`}>
             {person.name}
           </a>
-          <p class="text-sm font-code opacity-60">{person.distinct_ids[0]}</p>
+          <p class="text-xs font-code opacity-60">{person.distinct_ids[0]}</p>
         </div>
       </div>
 

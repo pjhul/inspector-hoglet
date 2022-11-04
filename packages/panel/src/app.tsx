@@ -4,7 +4,8 @@ import Login from "./components/Login";
 import { UserProvider, useUser } from "./components/UserProvider";
 import Person, { PersonData } from "./components/Person";
 
-import logo from "./assets/posthog.svg";
+import { Logomark } from "./components/Icons";
+
 
 export function App() {
   const { user } = useUser();
@@ -60,10 +61,12 @@ export function App() {
               panelOpen ? "" : "translate-x-full"
             }`}
           >
-            <div class="px-2 py-3">
+            <div class="px-2 pb-2">
               <div class="flex items-center space-x-2">
-                <img src={logo} class="w-6 h-6" />
-                <span>PostHog App + Website</span>
+                <span className="w-8 h-8 flex items-center">
+                  <Logomark />
+                </span>
+                <span class="font-bold opacity-75">PostHog App + Website</span>
               </div>
 
               <form onSubmit={handleSubmit}>
