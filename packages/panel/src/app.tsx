@@ -5,8 +5,9 @@ import Configure from "./components/Configure";
 import { UserProvider, useUser } from "./components/UserProvider";
 import Person, { PersonData } from "./components/Person";
 import Link from "./components/Link";
-
 import { Logomark } from "./components/Icons";
+
+import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 
 export function App() {
   const { user } = useUser();
@@ -82,7 +83,19 @@ export function App() {
                     PostHog App + Website
                   </span>
                 </div>
-                <Link to="https://app.posthog.com" external classes="text-xs text-black bg-accent/5 hover:bg-accent/10 active:bg-accent/20 p-1.5 rounded-full leading-none group">Open in PostHog <span className="opacity-50 group-hover:opacity-75">→</span></Link>
+                <div className="flex items-center space-x-2">
+                  <Link
+                    to="https://app.posthog.com"
+                    external
+                    classes="text-xs text-black bg-accent/5 hover:bg-accent/10 active:bg-accent/20 p-1.5 rounded-full leading-none group"
+                  >
+                    Open in PostHog{" "}
+                    <span className="opacity-50 group-hover:opacity-75">→</span>
+                  </Link>
+                  <button onClick={() => setScreen("configure")}>
+                    <Cog6ToothIcon className="w-5 h-5 text-gray-600" />
+                  </button>
+                </div>
               </div>
 
               <form onSubmit={handleSubmit}>

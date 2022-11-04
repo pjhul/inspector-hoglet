@@ -24,17 +24,17 @@ type Group = {
 };
 
 const Configure: React.FC<ConfigureProps> = ({ next }) => {
-  const [personProperties, setPersonProperties] = useState<PersonProperty[]>(
-    []
+  const { user, updateUser } = useUser();
+
+  const [personProperties, setPersonProperties] = useState<string[]>(
+    user?.personProps || []
   );
   const [definitions, setDefinitions] = useState<PersonProperty[]>([]);
   const [groups, setGroups] = useState<Group[]>([]);
 
   const [groupProperties, setGroupProperties] = useState<
     Record<string, string[]>
-  >({});
-
-  const { user, updateUser } = useUser();
+  >(user?.groupProps || {});
 
   useEffect(() => {
     if (user) {
@@ -75,8 +75,8 @@ const Configure: React.FC<ConfigureProps> = ({ next }) => {
     event.preventDefault();
 
     updateUser({
-      personProps: personProperties.map((prop) => prop.name),
-      groupProps: groupProperties
+      personProps: personProperties,
+      groupProps: groupProperties,
     } as any);
 
     next();
@@ -97,13 +97,13 @@ const Configure: React.FC<ConfigureProps> = ({ next }) => {
       <form onSubmit={handleSubmit} className="space-y-6">
         <TaxonomicFilter
           label="Key person properties"
-          values={definitions}
+          values={definitions.map((value) => value.name)}
           selected={personProperties}
           onChange={setPersonProperties}
-          displayValue={(def) => def.name}
+          displayValue={(def) => def}
           placeholder="Search person properties..."
           filter={(query, value) =>
-            value.name.toLowerCase().includes(query.toLocaleLowerCase())
+            value.toLowerCase().includes(query.toLocaleLowerCase())
           }
         />
 
