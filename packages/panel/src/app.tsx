@@ -5,6 +5,7 @@ import Configure from "./components/Configure";
 import { UserProvider, useUser } from "./components/UserProvider";
 import Person, { PersonData } from "./components/Person";
 import Link from "./components/Link";
+import CurrentProject from "./components/CurrentProject";
 import { Logomark } from "./components/Icons";
 
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
@@ -75,12 +76,12 @@ export function App() {
           >
             <div className="px-2 py-2 border-b">
               <div className="flex justify-between items-center space-x-2 mb-2">
-                <div className="flex items-center">
-                  <span className="w-8 h-8 flex items-center">
+                <div className="flex items-center space-x-2">
+                  <span className="w-7 h-7 flex items-center">
                     <Logomark />
                   </span>
-                  <span className="font-bold opacity-75">
-                    PostHog App + Website
+                  <span className="font-semibold opacity-75 text-sm">
+                    <CurrentProject />
                   </span>
                 </div>
                 <div className="flex items-center space-x-2">
