@@ -152,8 +152,8 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
               <List>
                 {events.map((event) => {
                   return (
-                    <ListItem>
-                      <Link to="#" external>
+                    <ListItem event>
+                      <Link to="#" external event>
                         {event.event}
                       </Link>
                     </ListItem>
