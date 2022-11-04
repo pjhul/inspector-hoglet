@@ -24,7 +24,7 @@ const Link: FunctionComponent<Props> = ({ to, external, classes, flag, recording
     <a 
       href={to}
       target={external ? "_blank" : undefined}
-      class={`${rowLinkStyles} ${baseLinkStyles}`}
+      class={`${rowLinkStyles} ${baseLinkStyles} ${classes}`}
     >
       {children}
     </a>
@@ -32,7 +32,7 @@ const Link: FunctionComponent<Props> = ({ to, external, classes, flag, recording
     <a 
       href={to}
       target={external ? "_blank" : undefined}
-      class={`${rowLinkStyles} ${baseLinkStyles}`}
+      class={`${rowLinkStyles} ${baseLinkStyles} ${classes}`}
     >
       {children}
     </a>
@@ -40,7 +40,7 @@ const Link: FunctionComponent<Props> = ({ to, external, classes, flag, recording
     <a 
       href={to}
       target={external ? "_blank" : undefined}
-      class={`${rowLinkStyles} ${baseLinkStyles}`}
+      class={`${rowLinkStyles} ${baseLinkStyles} ${classes}`}
     >
       {children}
     </a>
@@ -48,7 +48,7 @@ const Link: FunctionComponent<Props> = ({ to, external, classes, flag, recording
     <a 
       href={to}
       target={external ? "_blank" : undefined}
-      class={baseLinkStyles}
+      class={`${baseLinkStyles} ${classes}`}
     >
       {children}
     </a>

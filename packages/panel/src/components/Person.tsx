@@ -110,9 +110,9 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
               {Object.entries(person.properties).map(([key, value]) => {
                 if (typeof value !== "object") {
                   return (
-                    <ListItem>
-                      <p>{key}</p>
-                      <p>{value}</p>
+                    <ListItem property classes="space-x-2">
+                      <p class="text-xs font-code opacity-70">{key}</p>
+                      <p class="text-sm truncate">{value}</p>
                     </ListItem>
                   );
                 }
