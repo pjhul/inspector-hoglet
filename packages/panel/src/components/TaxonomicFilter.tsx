@@ -25,7 +25,6 @@ function TaxonomicFilter<T>(props: TaxonomicFilterProps<T>) {
 
   return (
     <>
-      
       <Combobox
         as="div"
         value={props.selected}
