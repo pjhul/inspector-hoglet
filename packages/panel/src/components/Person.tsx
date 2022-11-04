@@ -8,6 +8,8 @@ import FeatureFlags, { FeatureFlagsData } from "./FeatureFlags";
 import Section from "./Section";
 import Header from "./Header";
 import List from "./List";
+import ListItem from "./ListItem";
+import Link from "./Link";
 
 import { useUser } from "./UserProvider";
 import { humanFriendlyDetailedTime } from "../utils";
@@ -108,10 +110,10 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
               {Object.entries(person.properties).map(([key, value]) => {
                 if (typeof value !== "object") {
                   return (
-                    <li class="flex items-center justify-between">
+                    <ListItem>
                       <p>{key}</p>
                       <p>{value}</p>
-                    </li>
+                    </ListItem>
                   );
                 }
               })}
@@ -126,19 +128,18 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
               <List>
                 {recordings.map((recording) => {
                   return (
-                    <li class="flex items-center justify-between">
-                      <a
-                        class="text-blue-500 bold"
-                        target="_blank"
-                        href={`${user.url}/person/${person.distinct_ids[0]}#activeTab=sessionRecordings&sessionRecordingId=${recording.id}`}
+                    <ListItem>
+                      <Link 
+                        to={`${user.url}/person/${person.distinct_ids[0]}#activeTab=sessionRecordings&sessionRecordingId=${recording.id}`}
+                        external
                       >
                         {humanFriendlyDetailedTime(
                           recording.start_time,
                           "MMMM DD, YYYY",
                           "h:mm A"
                         )}
-                      </a>
-                    </li>
+                      </Link>
+                    </ListItem>
                   );
                 })}
               </List>
@@ -151,11 +152,11 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
               <List>
                 {events.map((event) => {
                   return (
-                    <li class="flex items-center justify-between">
-                      <a class="text-blue-500 bold" target="_blank">
+                    <ListItem>
+                      <Link to="#" external>
                         {event.event}
-                      </a>
-                    </li>
+                      </Link>
+                    </ListItem>
                   );
                 })}
               </List>

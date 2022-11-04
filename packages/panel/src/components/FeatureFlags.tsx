@@ -2,6 +2,8 @@ import { FunctionComponent } from "preact";
 import Header from "./Header";
 import Section from "./Section";
 import List from "./List";
+import ListItem from "./ListItem";
+import Link from "./Link";
 
 export type FeatureFlagsData = Record<
   string,
@@ -26,11 +28,11 @@ const FeatureFlags: FunctionComponent<{
             .slice(0, 5)
             .map(([key, value]) => {
               return (
-                <li class="flex items-center justify-between">
-                  <a class="text-blue-500 bold" target="_blank">
+                <ListItem>
+                  <Link to="#" external>
                     {key}
-                  </a>
-                </li>
+                  </Link>
+                </ListItem>
               );
             })}
         </List>
