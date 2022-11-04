@@ -18,7 +18,7 @@ const FeatureFlags: FunctionComponent<{
     <div>
       <span>Feature Flags</span>
       {featureFlags ? (
-        <ul class="pl-10 pr-3 py-2 bg-gray-100 border-t">
+        <ul class="pl-6 pr-3 py-2 bg-gray-100 border-t bg-light-gray">
           {Object.entries(featureFlags)
             .slice(0, 5)
             .map(([key, value]) => {
