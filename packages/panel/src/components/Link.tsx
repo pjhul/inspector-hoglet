@@ -11,7 +11,7 @@ const Link: FunctionComponent<Props> = ({ to, external, classes, children }) => 
     <a 
       href={to}
       target={external ? "_blank" : undefined}
-      class="text-blue-500 flex w-full p-1 rounded-sm hover:bg-light-gray"
+      class="text-blue-500 "
     >
       {children}
     </a>
