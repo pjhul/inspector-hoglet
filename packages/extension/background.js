@@ -14,7 +14,7 @@ const createPanel = (query) => {
       ? `https://inspector-hoglet.vercel.app/?email=${query}`
       : `https://inspector-hoglet.vercel.app`;
     frame.id = "posthog-panel";
-    frame.style.width = "500px";
+    frame.style.width = "425px";
     frame.style.position = "fixed";
     frame.style.right = 0;
     frame.style.top = 0;
