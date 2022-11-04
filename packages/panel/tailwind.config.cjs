@@ -6,9 +6,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'accent': 'rgba(0,0,0,.15)',
+      },
       backgroundColor: {
         'light-gray': '#fafaf9',
-        'accent': 'rgba(0,0,0,.15)',
       },
       fontFamily: {
         code: ['Source Code Pro', 'Menlo', 'Consolas', 'monaco', 'monospace'],
