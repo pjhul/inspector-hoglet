@@ -1,4 +1,17 @@
 import { FunctionComponent } from "preact"
+import cntl from 'cntl';
+
+const baseLinkStyles = cntl`
+  text-blue-500
+`
+
+const rowLinkStyles = cntl`
+  flex
+  w-full
+  p-1
+  rounded-sm
+  hover:bg-light-gray
+`
 
 interface Props {
   to: string
@@ -6,12 +19,28 @@ interface Props {
   external?: boolean
 }
 
-const Link: FunctionComponent<Props> = ({ to, external, classes, event, children }) => {
-  return event ? (
+const Link: FunctionComponent<Props> = ({ to, external, classes, flag, recording, event, children }) => {
+  return flag ? (
     <a 
       href={to}
       target={external ? "_blank" : undefined}
-      class="text-blue-500 flex w-full p-1 rounded-sm hover:bg-light-gray"
+      class={`${rowLinkStyles} ${baseLinkStyles}`}
+    >
+      {children}
+    </a>
+  ) : recording ? (
+    <a 
+      href={to}
+      target={external ? "_blank" : undefined}
+      class={`${rowLinkStyles} ${baseLinkStyles}`}
+    >
+      {children}
+    </a>
+  ) : event ? (
+    <a 
+      href={to}
+      target={external ? "_blank" : undefined}
+      class={`${rowLinkStyles} ${baseLinkStyles}`}
     >
       {children}
     </a>
@@ -19,7 +48,7 @@ const Link: FunctionComponent<Props> = ({ to, external, classes, event, children
     <a 
       href={to}
       target={external ? "_blank" : undefined}
-      class="text-blue-500"
+      class={baseLinkStyles}
     >
       {children}
     </a>

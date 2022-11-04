@@ -131,7 +131,7 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
                     <ListItem>
                       <Link
                         to={`${user.url}/person/${person.distinct_ids[0]}#activeTab=sessionRecordings&sessionRecordingId=${recording.id}`}
-                        external
+                        external recording
                       >
                         {humanFriendlyDetailedTime(
                           recording.start_time,

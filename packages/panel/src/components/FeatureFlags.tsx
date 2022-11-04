@@ -29,7 +29,7 @@ const FeatureFlags: FunctionComponent<{
             .map(([key, value]) => {
               return (
                 <ListItem>
-                  <Link to="#" external>
+                  <Link to="#" external flag>
                     {key}
                   </Link>
                 </ListItem>
