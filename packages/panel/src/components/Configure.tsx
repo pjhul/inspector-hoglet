@@ -83,7 +83,7 @@ const Configure: React.FC<ConfigureProps> = ({ next }) => {
   };
 
   return (
-    <div className="py-32 flex flex-col space-y-6 px-6 bg-light-gray">
+    <div className="py-16 flex flex-col space-y-6 px-6 bg-light-gray">
       <div className="space-y-1">
         <h1 className="text-2xl font-bold">
           Which properties are important to you?
