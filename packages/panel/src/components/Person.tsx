@@ -68,9 +68,9 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
           .then((data) => setFeatureFlags(data));
       }
 
-      if (!events) {
+      if (!events.length) {
         fetch(
-          `${user.url}/api/projects/@current/events?person_id=${person.id}&orderBy=["-timestamp"]`,
+          `${user.url}/api/projects/@current/events?person_id=${person.id}&orderBy=["-timestamp"]&limit=10`,
           { headers: { Authorization: `Bearer ${user.apiKey}` } }
         )
           .then((res) => res.json())
@@ -146,19 +146,11 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
             <span>Events</span>
             {events.length ? (
               <ul class="pl-10 pr-3 py-2 bg-gray-100 border-t">
-                {events.map((events) => {
+                {events.map((event) => {
                   return (
                     <li class="flex items-center justify-between">
-                      <a
-                        class="text-blue-500 bold"
-                        target="_blank"
-                        href={`${user.url}/person/${person.distinct_ids[0]}#activeTab=sessionRecordings&sessionRecordingId=${recording.id}`}
-                      >
-                        {humanFriendlyDetailedTime(
-                          recording.start_time,
-                          "MMMM DD, YYYY",
-                          "h:mm A"
-                        )}
+                      <a class="text-blue-500 bold" target="_blank">
+                        {event.event}
                       </a>
                     </li>
                   );
