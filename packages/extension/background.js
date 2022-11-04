@@ -15,7 +15,7 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
       func: (email) => {
         if (!document.getElementById("posthog-panel")) {
           const frame = document.createElement("iframe");
-          frame.src = `http://localhost:5173?email=${email}`;
+          frame.src = `https://inspector-hoglet.vercel.app/?email=${email}`;
           frame.id = "posthog-panel";
           frame.style.width = "400px";
           frame.style.position = "fixed";
