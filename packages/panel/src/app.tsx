@@ -7,19 +7,20 @@ import Person, { PersonData } from "./components/Person";
 import logo from "./assets/posthog.svg";
 
 export function App() {
-  const [step, setStep] = useState<"login" /*| "configure"*/ | "setup">(
-    "setup"
+  const { user } = useUser();
+
+  const [screen, setScreen] = useState<"login" /*| "configure"*/ | "main">(
+    !user ? "login" : "main"
   );
   const [panelOpen, setPanelOpen] = useState(true);
   const [query, setQuery] = useState("");
-  const user = useUser();
 
   const [persons, setPersons] = useState<PersonData[]>([]);
 
   useEffect(() => {
     const url = new URLSearchParams(window.location.search);
 
-    if (url.has("email")) {
+    if (url.has("email") && user) {
       setQuery(url.get("email") as string);
 
       fetch(
@@ -34,6 +35,10 @@ export function App() {
   const handleSubmit = async (event: any) => {
     event.preventDefault();
 
+    if (!user) {
+      return;
+    }
+
     const res = await fetch(
       `${user.url}/api/projects/@current/persons?search=${query}`,
       { headers: { Authorization: `Bearer ${user.apiKey}` } }
@@ -47,8 +52,8 @@ export function App() {
   return (
     <>
       <UserProvider>
-        {step === "login" ? (
-          <Login next={() => setStep("setup")} />
+        {screen === "login" ? (
+          <Login next={() => setScreen("main")} />
         ) : (
           <div
             class={`w-full h-full flex flex-col border-l shadow-md transform transition-transform bg-white ${

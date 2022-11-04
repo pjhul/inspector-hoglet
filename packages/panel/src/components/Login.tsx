@@ -1,5 +1,7 @@
 import { FunctionComponent } from "preact";
-import { useState } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
+
+import { useUser } from "./UserProvider";
 
 type LoginProps = {
   next: () => void;
@@ -7,11 +9,26 @@ type LoginProps = {
 
 const Login: FunctionComponent<LoginProps> = ({ next }) => {
   const [location, setLocation] = useState<string>("cloud-us");
-  const [host, setHost] = useState<string>("https://app.posthog.com");
+  const [host, setHost] = useState<string>("app.posthog.com");
   const [apiKey, setApiKey] = useState<string>("");
+
+  const { updateUser } = useUser();
+
+  useEffect(() => {
+    if (location === "cloud-us") {
+      setHost("app.posthog.com");
+    } else if (location === "cloud-eu") {
+      setHost("eu.posthog.com");
+    }
+  }, [location]);
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
+
+    updateUser({
+      url: "https://" + host,
+      apiKey,
+    });
 
     next();
   };
@@ -73,6 +90,9 @@ const Login: FunctionComponent<LoginProps> = ({ next }) => {
                   id="company-website"
                   className="block w-full rounded-md border-gray-300 pl-16 focus:border-indigo-500 focus:ring-indigo-500 sm:pl-14 sm:text-sm"
                   placeholder="www.example.com"
+                  onInput={(event) =>
+                    setHost((event.target as HTMLInputElement).value)
+                  }
                 />
               </div>
             </div>
