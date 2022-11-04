@@ -43,7 +43,7 @@ export type Event = {
 };
 
 const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
-  const user = useUser();
+  const { user } = useUser();
 
   const [expanded, setExpanded] = useState(false);
 
@@ -54,7 +54,7 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
   const [events, setEvents] = useState<Event[]>([]);
 
   useEffect(() => {
-    if (expanded) {
+    if (expanded && user) {
       if (!recordings.length) {
         fetch(
           `${user.url}/api/projects/@current/session_recordings?person_uuid=${person.uuid}&limit=5`,
@@ -84,7 +84,7 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
     }
   }, [expanded]);
 
-  return (
+  return user ? (
     <div key={person.id}>
       <div class="flex items-center space-x-2 py-2 px-3">
         <button
@@ -129,7 +129,7 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
                 {recordings.map((recording) => {
                   return (
                     <ListItem>
-                      <Link 
+                      <Link
                         to={`${user.url}/person/${person.distinct_ids[0]}#activeTab=sessionRecordings&sessionRecordingId=${recording.id}`}
                         external
                       >
@@ -165,7 +165,7 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
         </div>
       )}
     </div>
-  );
+  ) : null;
 };
 
 export default Person;
