@@ -71,7 +71,7 @@ export function App() {
               panelOpen ? "" : "translate-x-full"
             }`}
           >
-            <div className="px-2 py-2 border-b">
+            <div className="px-2 pt-2 border-b">
               <div className="flex items-center space-x-2 mb-2">
                 <span className="w-8 h-8 flex items-center">
                   <Logomark />
@@ -116,7 +116,7 @@ export function App() {
             ) : persons.length === 1 ? (
               <Person person={persons[0]} />
             ) : (
-              <ul className="divide-y overflow-y-scroll flex-grow overscroll-y-contain">
+              <ul className="divide-y overflow-y-scroll flex-grow overscroll-y-contain pb-2">
                 {persons.map((person) => {
                   return (
                     <li>

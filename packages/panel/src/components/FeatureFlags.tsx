@@ -24,7 +24,9 @@ const FeatureFlags: React.FC<{
 
   return (
     <Section>
-      <Header>Feature flags</Header>
+      <Header link="#">
+        Feature flags
+      </Header>
       {featureFlags ? (
         <List>
           {Object.entries(featureFlags)
