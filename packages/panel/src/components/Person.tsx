@@ -100,8 +100,8 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
       {expanded && (
         <div class="space-y-2">
           <div>
-            <span>Properties</span>
-            <ul class="pl-10 pr-3 py-2 bg-gray-100 border-t">
+            <span>Properties (temp hidden)</span>
+            <ul class="pl-6 pr-3 py-2 bg-gray-100 border-t hidden">
               {Object.entries(person.properties).map(([key, value]) => {
                 if (typeof value !== "object") {
                   return (
@@ -120,7 +120,7 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
           <div>
             <span>Recordings</span>
             {recordings.length ? (
-              <ul class="pl-10 pr-3 py-2 bg-gray-100 border-t">
+              <ul class="pl-6 pr-3 py-2 bg-gray-100 border-t">
                 {recordings.map((recording) => {
                   return (
                     <li class="flex items-center justify-between">
@@ -145,7 +145,7 @@ const Person: FunctionComponent<{ person: PersonData }> = ({ person }) => {
           <div>
             <span>Events</span>
             {events.length ? (
-              <ul class="pl-10 pr-3 py-2 bg-gray-100 border-t">
+              <ul class="pl-6 pr-3 py-2 bg-gray-100 border-t">
                 {events.map((event) => {
                   return (
                     <li class="flex items-center justify-between">
