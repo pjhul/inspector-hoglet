@@ -1,4 +1,9 @@
 import { FunctionComponent } from "preact";
+import Header from "./Header";
+import Section from "./Section";
+import List from "./List";
+import ListItem from "./ListItem";
+import Link from "./Link";
 
 export type FeatureFlagsData = Record<
   string,
@@ -15,24 +20,24 @@ const FeatureFlags: FunctionComponent<{
   featureFlags: FeatureFlagsData | undefined;
 }> = ({ featureFlags }) => {
   return (
-    <div>
-      <span>Feature Flags</span>
+    <Section>
+      <Header>Feature flags</Header>
       {featureFlags ? (
-        <ul class="pl-10 pr-3 py-2 bg-gray-100 border-t">
+        <List>
           {Object.entries(featureFlags)
             .slice(0, 5)
             .map(([key, value]) => {
               return (
-                <li class="flex items-center justify-between">
-                  <a class="text-blue-500 bold" target="_blank">
+                <ListItem>
+                  <Link to="#" external>
                     {key}
-                  </a>
-                </li>
+                  </Link>
+                </ListItem>
               );
             })}
-        </ul>
+        </List>
       ) : null}
-    </div>
+    </Section>
   );
 };
 
