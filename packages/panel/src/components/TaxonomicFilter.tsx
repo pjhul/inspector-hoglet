@@ -1,88 +1,33 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Combobox } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
-
-import { useUser } from "./UserProvider";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-type PersonProperty = {
-  name: string;
-  count: number;
-};
+type TaxonomicFilterProps<T> = {
+  values: T[]
+  selected: T[]
+  onChange: (values: T[]) => void
+  filter: (query: string, value: T) => boolean
+  displayValue: (value: T) => string
+}
 
-type Group = {
-  group_type: string;
-  group_type_index: number;
-  name_singular: string | null;
-  name_plural: string;
-  properties: {
-    name: string;
-    count: number;
-  }[];
-};
+function TaxonomicFilter<T>(props: TaxonomicFilterProps<T>) {
+  const [query, setQuery] = useState("")
 
-const TaxonomicFilter = () => {
-  const { user } = useUser();
-
-  const [query, setQuery] = useState("");
-  const [personProperties, setPersonProperties] = useState<PersonProperty[]>(
-    []
-  );
-  const [definitions, setDefinitions] = useState<PersonProperty[]>([]);
-  const [groups, setGroups] = useState<Group[]>([]);
-
-  useEffect(() => {
-    if (user) {
-      fetch(`${user.url}/api/projects/@current/persons/properties`, {
-        headers: { Authorization: `Bearer ${user.apiKey}` },
-      })
-        .then((res) => res.json())
-        .then((data) => setDefinitions(data));
-
-      fetch(`${user.url}/api/projects/@current/groups_types`, {
-        headers: { Authorization: `Bearer ${user.apiKey}` },
-      })
-        .then((res) => res.json())
-        .then((groupTypes) => {
-          fetch(
-            `${user.url}/api/projects/@current/groups/property_definitions`,
-            {
-              headers: { Authorization: `Bearer ${user.apiKey}` },
-            }
-          )
-            .then((res) => res.json())
-            .then((groupProps) => {
-              setGroups(
-                groupTypes.map((group: any) => {
-                  return {
-                    ...group,
-                    properties: groupProps[group.group_type_index.toString()],
-                  };
-                })
-              );
-            });
-        });
-    }
-  }, [user]);
-
-  console.log(groups);
-
-  const filteredDefinitions =
+  const filteredValues =
     query === ""
-      ? definitions
-      : definitions.filter((def) => {
-          return def.name.toLowerCase().includes(query.toLowerCase());
-        });
+      ? props.values
+    : props.values.filter((value) => props.filter(query, value));
 
   return (
     <>
       <Combobox
         as="div"
-        value={personProperties}
-        onChange={(selected) => setPersonProperties(selected)}
+        value={props.selected}
+        onChange={(selected) => props.onChange(selected)}
         multiple
       >
         <Combobox.Label className="block text-sm font-medium text-gray-700">
@@ -92,7 +37,7 @@ const TaxonomicFilter = () => {
           <Combobox.Input
             className="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
             onChange={(event) => setQuery(event.target.value)}
-            displayValue={(def: PersonProperty) => def?.name || ""}
+            displayValue={props.displayValue}
           />
           <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
             <ChevronUpDownIcon
@@ -101,12 +46,12 @@ const TaxonomicFilter = () => {
             />
           </Combobox.Button>
 
-          {definitions.length > 0 && (
+          {props.values.length > 0 && (
             <Combobox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-              {filteredDefinitions.map((person) => (
+              {filteredValues.map((value) => (
                 <Combobox.Option
-                  key={person.name}
-                  value={person}
+                  key={props.displayValue(value)}
+                  value={value}
                   className={({ active }) =>
                     classNames(
                       "relative cursor-default select-none py-2 pl-3 pr-9",
@@ -122,7 +67,7 @@ const TaxonomicFilter = () => {
                           selected && "font-semibold"
                         )}
                       >
-                        {person.name}
+                        {props.displayValue(value)}
                       </span>
 
                       {selected && (
@@ -145,8 +90,8 @@ const TaxonomicFilter = () => {
       </Combobox>
 
       <ul>
-        {personProperties.map((prop) => {
-          return <li>{prop.name}</li>;
+        {props.selected.map((value) => {
+          return <li key={props.displayValue(value)}>{props.displayValue(value)}</li>;
         })}
       </ul>
     </>
