@@ -59,12 +59,12 @@ export function App() {
           <Configure next={() => setScreen("main")}/>
         ) : (
           <div
-            className={`w-full h-full flex flex-col border-l shadow-md transform transition-transform bg-white ${
+            className={`w-full h-full flex flex-col border-l shadow-md transform transition-transform bg-light-gray ${
               panelOpen ? "" : "translate-x-full"
             }`}
           >
             <div className="px-2 pb-2">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 mb-2">
                 <span className="w-8 h-8 flex items-center">
                   <Logomark />
                 </span>
@@ -77,13 +77,14 @@ export function App() {
                 <div className="flex items-center">
                   <input
                     type="text"
-                    className="flex-grow border p-1"
+                    className="flex-grow border border-solid border-accent rounded-sm px-2 py-1 text-sm"
+                    placeholder="Search users in PostHog..."
                     value={query}
                     onInput={(event) =>
                       setQuery((event.target as HTMLInputElement).value)
                     }
                   />
-                  <button type="submit">Submit</button>
+                  <button type="submit" className="hidden">Submit</button>
                 </div>
               </form>
             </div>

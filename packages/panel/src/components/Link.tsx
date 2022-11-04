@@ -22,7 +22,7 @@ type Props = {
 const Link: React.FC<Props> = ({
   to,
   external,
-  className,
+  classes,
   flag,
   recording,
   event,
@@ -32,7 +32,7 @@ const Link: React.FC<Props> = ({
     <a
       href={to}
       target={external ? "_blank" : undefined}
-      className={`${rowLinkStyles} ${baseLinkStyles} ${className}`}
+      className={`${baseLinkStyles} ${rowLinkStyles} ${classes}`}
     >
       {children}
     </a>
@@ -40,7 +40,7 @@ const Link: React.FC<Props> = ({
     <a
       href={to}
       target={external ? "_blank" : undefined}
-      className={`${rowLinkStyles} ${baseLinkStyles} ${className}`}
+      className={`${baseLinkStyles} ${rowLinkStyles} ${classes}`}
     >
       {children}
     </a>
@@ -48,7 +48,7 @@ const Link: React.FC<Props> = ({
     <a
       href={to}
       target={external ? "_blank" : undefined}
-      className={`${rowLinkStyles} ${baseLinkStyles} ${className}`}
+      className={`${baseLinkStyles} ${rowLinkStyles} ${classes}`}
     >
       {children}
     </a>
@@ -56,7 +56,7 @@ const Link: React.FC<Props> = ({
     <a
       href={to}
       target={external ? "_blank" : undefined}
-      className={`${baseLinkStyles} ${className}`}
+      className={`${baseLinkStyles} ${classes}`}
     >
       {children}
     </a>
