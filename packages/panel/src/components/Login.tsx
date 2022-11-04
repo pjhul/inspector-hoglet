@@ -34,8 +34,8 @@ const Login: FunctionComponent<LoginProps> = ({ next }) => {
   };
 
   return (
-    <div class="h-full px-6 flex flex-col justify-center space-y-12">
-      <form onSubmit={handleSubmit}>
+    <div class="h-full px-6 flex flex-col justify-center">
+      <form onSubmit={handleSubmit} class="space-y-12">
         <div class="space-y-2">
           <h1 class="text-2xl font-bold">Meet Inspector Hoglet</h1>
           <h5>
