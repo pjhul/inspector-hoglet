@@ -44,6 +44,10 @@ export type Event = {
 const Person: React.FC<{ person: PersonData }> = ({ person }) => {
   const { user } = useUser();
 
+  const personPropsToShow = user?.personProps
+    ? new Set(user.personProps)
+    : undefined;
+
   const [expanded, setExpanded] = useState(false);
 
   const [featureFlags, setFeatureFlags] = useState<
@@ -106,18 +110,22 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
       {expanded && (
         <div className="space-y-2">
           <Section>
-            <Header>Properties (temp hidden)</Header>
-            <List className="hidden">
-              {Object.entries(person.properties).map(([key, value]) => {
-                if (typeof value !== "object") {
-                  return (
-                    <ListItem property classes="space-x-2">
-                      <p className="text-xs font-code opacity-70">{key}</p>
-                      <p className="text-sm truncate">{value}</p>
-                    </ListItem>
-                  );
-                }
-              })}
+            <Header>Properties</Header>
+            <List>
+              {Object.entries(person.properties)
+                .filter(([key]) =>
+                  personPropsToShow ? personPropsToShow.has(key) : true
+                )
+                .map(([key, value]) => {
+                  if (typeof value !== "object") {
+                    return (
+                      <ListItem property classes="space-x-2">
+                        <p className="text-xs font-code opacity-70">{key}</p>
+                        <p className="text-sm truncate">{value}</p>
+                      </ListItem>
+                    );
+                  }
+                })}
             </List>
           </Section>
 

@@ -11,7 +11,7 @@ export function App() {
   const { user } = useUser();
 
   const [screen, setScreen] = useState<"login" | "configure" | "main">(
-    !user ? "login" : "main"
+    user?.personProps ? "main" : user ? "configure" : "login"
   );
   const [panelOpen, setPanelOpen] = useState(true);
   const [query, setQuery] = useState("");
@@ -54,9 +54,9 @@ export function App() {
     <>
       <UserProvider>
         {screen === "login" ? (
-          <Login next={() => setScreen("main")} />
+          <Login next={() => setScreen("configure")} />
         ) : screen === "configure" ? (
-          <Configure />
+          <Configure next={() => setScreen("main")}/>
         ) : (
           <div
             className={`w-full h-full flex flex-col border-l shadow-md transform transition-transform bg-white ${

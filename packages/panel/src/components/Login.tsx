@@ -29,6 +29,7 @@ const Login: React.FC<LoginProps> = ({ next }) => {
     updateUser({
       url: "https://" + host,
       apiKey,
+      personProps: undefined
     });
 
     next();

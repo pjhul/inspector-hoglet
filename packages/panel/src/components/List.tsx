@@ -4,11 +4,7 @@ type ListProps = {
   loading?: boolean;
 };
 
-const List: React.FC<ListProps> = ({
-  className = "",
-  children,
-  loading = true,
-}) => {
+const List: React.FC<ListProps> = ({ className = "", children, loading }) => {
   return loading ? (
     <ul className="space-y-2 mx-2">
       {new Array(5).fill(1).map(() => {
