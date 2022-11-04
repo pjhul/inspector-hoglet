@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import Configure from "./components/Configure";
 import { UserProvider, useUser } from "./components/UserProvider";
 import Person, { PersonData } from "./components/Person";
+import Link from "./components/Link";
 
 import { Logomark } from "./components/Icons";
 
@@ -64,13 +65,16 @@ export function App() {
             }`}
           >
             <div className="px-2 pt-2">
-              <div className="flex items-center space-x-2 mb-2">
-                <span className="w-8 h-8 flex items-center">
-                  <Logomark />
-                </span>
-                <span className="font-bold opacity-75">
-                  PostHog App + Website
-                </span>
+              <div className="flex justify-between items-center space-x-2 mb-2">
+                <div className="flex items-center">
+                  <span className="w-8 h-8 flex items-center">
+                    <Logomark />
+                  </span>
+                  <span className="font-bold opacity-75">
+                    PostHog App + Website
+                  </span>
+                </div>
+                <Link to="https://app.posthog.com" external classes="text-xs text-black bg-accent/5 hover:bg-accent/10 active:bg-accent/20 p-1.5 rounded-full leading-none group">Open in PostHog <span className="opacity-50 group-hover:opacity-75">→</span></Link>
               </div>
 
               <form onSubmit={handleSubmit}>
