@@ -134,7 +134,7 @@ const Configure: React.FC<ConfigureProps> = ({ next }) => {
 
         <button
           type="submit"
-          className="bg-blue-500 rounded w-full py-2 text-white disabled:bg-blue-200 mt-10 box-border"
+          className="bg-primary rounded w-full py-2 text-white disabled:bg-blue-200 mt-10 box-border"
         >
           Next
         </button>
