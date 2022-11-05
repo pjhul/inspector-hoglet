@@ -11,6 +11,8 @@ import ListItem from "./ListItem";
 import Link from "./Link";
 import Event from "./Event";
 
+import { Tab } from "@headlessui/react";
+
 import { useUser } from "./UserProvider";
 import { humanFriendlyDetailedTime } from "../utils";
 
@@ -175,7 +177,9 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
           {groups.map((group) => {
             return (
               <Section>
-                <Header>{group.name.charAt(0).toUpperCase() + group.name.slice(1)}</Header>
+                <Header>
+                  {group.name.charAt(0).toUpperCase() + group.name.slice(1)}
+                </Header>
                 <List>
                   <ListItem>
                     <div className="w-full flex flex-col items-stretch">
