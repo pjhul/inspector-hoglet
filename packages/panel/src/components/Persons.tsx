@@ -109,9 +109,9 @@ const Persons: React.FC<PersonsProps> = (props) => {
 
       {loading ? (
         <ul className="divide-y">
-          {new Array(8).fill(1).map(() => {
+          {new Array(8).fill(1).map((_, i) => {
             return (
-              <li className="py-3 px-3">
+              <li key={i} className="py-3 px-3">
                 <div className="w-full rounded py-3 bg-gray-200 animate-pulse" />
               </li>
             );
@@ -127,7 +127,7 @@ const Persons: React.FC<PersonsProps> = (props) => {
         <ul className="divide-y overflow-y-scroll flex-grow overscroll-y-contain pb-2">
           {persons.map((person) => {
             return (
-              <li>
+              <li key={person.id}>
                 <Person person={person} />
               </li>
             );

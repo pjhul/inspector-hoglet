@@ -138,7 +138,7 @@ const Login: React.FC<LoginProps> = ({ next }) => {
         {/* TODO: Hit the API to make sure everything is valid before coninuing */}
         <button
           disabled={!(location && host && apiKey)}
-          className="bg-blue-500 rounded w-full py-2 text-white disabled:bg-blue-200"
+          className="bg-primary rounded w-full py-2 text-white disabled:bg-blue-200"
         >
           Next
         </button>

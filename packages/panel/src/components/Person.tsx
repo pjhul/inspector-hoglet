@@ -15,6 +15,7 @@ import { Tab } from "@headlessui/react";
 
 import { useUser } from "./UserProvider";
 import { humanFriendlyDetailedTime } from "../utils";
+import React from "react";
 
 export type PersonData = {
   id: string;
@@ -53,6 +54,14 @@ export type Event = {
   id: string;
   properties: Record<string, any>;
 };
+
+const tabs = [
+  "Properties",
+  "Related Groups",
+  "Feature Flags",
+  "Recordings",
+  "Events",
+];
 
 const Person: React.FC<{ person: PersonData }> = ({ person }) => {
   const { user } = useUser();
@@ -153,115 +162,155 @@ const Person: React.FC<{ person: PersonData }> = ({ person }) => {
       </div>
 
       {expanded && (
-        <div className="space-y-2">
-          <Section>
-            <Header>Properties</Header>
-            <List>
-              {Object.entries(person.properties)
-                .filter(([key]) =>
-                  personPropsToShow ? personPropsToShow.has(key) : true
-                )
-                .map(([key, value]) => {
-                  if (typeof value !== "object") {
-                    return (
-                      <ListItem property classes="space-x-2">
-                        <p className="text-xs font-code opacity-70">{key}</p>
-                        <p className="text-sm truncate">{value}</p>
-                      </ListItem>
-                    );
-                  }
-                })}
-            </List>
-          </Section>
-
-          {groups.map((group) => {
-            return (
+        <Tab.Group>
+          <Tab.List className="flex items-center justify-around border-b mb-2">
+            {tabs.map((tab) => (
+              <Tab key={tab} as={React.Fragment}>
+                {({ selected }) => (
+                  <button
+                    className={`${
+                      selected
+                        ? "text-primary border-b border-primary py-1"
+                        : ""
+                    } text-sm`}
+                  >
+                    {tab}
+                  </button>
+                )}
+              </Tab>
+            ))}
+          </Tab.List>
+          <Tab.Panels>
+            <Tab.Panel as="div">
               <Section>
-                <Header>
-                  {group.name.charAt(0).toUpperCase() + group.name.slice(1)}
-                </Header>
+                <Header>Properties</Header>
                 <List>
-                  <ListItem>
-                    <div className="w-full flex flex-col items-stretch">
-                      <div className="w-full flex items-center justify-between border-b py-1">
-                        <Link
-                          external
-                          to={`${user.url}/groups/${group.group_type_index}/${group.id}`}
-                        >
-                          {group.properties?.name || group.id}
-                        </Link>
-                      </div>
-
-                      {user.groupProps?.[group.group_type_index] ? (
-                        <ul className="w-full pb-2">
-                          {Object.entries(group.properties)
-                            .filter(
-                              ([key]) =>
-                                user.groupProps?.[
-                                  group.group_type_index
-                                ].indexOf(key) !== -1
-                            )
-                            ?.map(([key, value]) => {
-                              return (
-                                <ListItem property classes="space-x-2">
-                                  <p className="text-xs font-code opacity-70">
-                                    {key}
-                                  </p>
-                                  <p className="text-sm truncate">{value}</p>
-                                </ListItem>
-                              );
-                            })}
-                        </ul>
-                      ) : null}
-                    </div>
-                  </ListItem>
+                  {Object.entries(person.properties)
+                    .filter(([key]) =>
+                      personPropsToShow ? personPropsToShow.has(key) : true
+                    )
+                    .map(([key, value]) => {
+                      if (typeof value !== "object") {
+                        return (
+                          <ListItem key={key} property classes="space-x-2">
+                            <p className="text-xs font-code opacity-70">
+                              {key}
+                            </p>
+                            <p className="text-sm truncate">{value}</p>
+                          </ListItem>
+                        );
+                      }
+                    })}
                 </List>
               </Section>
-            );
-          })}
+            </Tab.Panel>
 
-          <FeatureFlags featureFlags={featureFlags} />
-
-          <Section>
-            <Header link="#">Recordings</Header>
-            {recordings.length ? (
-              <List>
-                {recordings.map((recording) => {
+            <Tab.Panel>
+              <div className="space-y-2">
+                {groups.map((group) => {
                   return (
-                    <ListItem recording>
-                      <Link
-                        to={`${user.url}/person/${person.distinct_ids[0]}#activeTab=sessionRecordings&sessionRecordingId=${recording.id}`}
-                        recording
-                        external
-                      >
-                        {humanFriendlyDetailedTime(
-                          recording.start_time,
-                          "MMMM DD, YYYY",
-                          "h:mm A"
-                        )}
-                      </Link>
-                    </ListItem>
+                    <Section key={group.id}>
+                      <Header>
+                        {group.name.charAt(0).toUpperCase() +
+                          group.name.slice(1)}
+                      </Header>
+                      <List>
+                        <ListItem>
+                          <div className="w-full flex flex-col items-stretch">
+                            <div className="w-full flex items-center justify-between border-b py-1 text-sm">
+                              <Link
+                                external
+                                to={`${user.url}/groups/${group.group_type_index}/${group.id}`}
+                              >
+                                {group.properties?.name || group.id}
+                              </Link>
+                            </div>
+
+                            {user.groupProps?.[group.group_type_index] ? (
+                              <ul className="w-full pb-2">
+                                {Object.entries(group.properties)
+                                  .filter(
+                                    ([key]) =>
+                                      user.groupProps?.[
+                                        group.group_type_index
+                                      ].indexOf(key) !== -1
+                                  )
+                                  ?.map(([key, value]) => {
+                                    return (
+                                      <ListItem
+                                        key={key}
+                                        property
+                                        classes="space-x-2"
+                                      >
+                                        <p className="text-xs font-code opacity-70">
+                                          {key}
+                                        </p>
+                                        <p className="text-sm truncate">
+                                          {value}
+                                        </p>
+                                      </ListItem>
+                                    );
+                                  })}
+                              </ul>
+                            ) : null}
+                          </div>
+                        </ListItem>
+                      </List>
+                    </Section>
                   );
                 })}
-              </List>
-            ) : null}
-          </Section>
+              </div>
+            </Tab.Panel>
 
-          <Section>
-            <Header>Events</Header>
-            {events.length ? (
-              <List>
-                {events.map((event) => {
-                  return (
-                    <ListItem event>
-                      <Event>{event.event}</Event>
-                    </ListItem>
-                  );
-                })}
-              </List>
-            ) : null}
-          </Section>
-        </div>
+            <Tab.Panel>
+              <FeatureFlags featureFlags={featureFlags} />
+            </Tab.Panel>
+
+            <Tab.Panel>
+              <Section>
+                <Header link="#">Recordings</Header>
+                {recordings.length ? (
+                  <List>
+                    {recordings.map((recording) => {
+                      return (
+                        <ListItem key={recording.id} recording>
+                          <Link
+                            to={`${user.url}/person/${person.distinct_ids[0]}#activeTab=sessionRecordings&sessionRecordingId=${recording.id}`}
+                            recording
+                            external
+                          >
+                            {humanFriendlyDetailedTime(
+                              recording.start_time,
+                              "MMMM DD, YYYY",
+                              "h:mm A"
+                            )}
+                          </Link>
+                        </ListItem>
+                      );
+                    })}
+                  </List>
+                ) : null}
+              </Section>
+            </Tab.Panel>
+
+            <Tab.Panel>
+              <Section>
+                <Header>Events</Header>
+                {events.length ? (
+                  <List>
+                    {events.map((event) => {
+                      return (
+                        <ListItem key={event.id} event>
+                          <Event>{event.event}</Event>
+                        </ListItem>
+                      );
+                    })}
+                  </List>
+                ) : null}
+              </Section>
+            </Tab.Panel>
+          </Tab.Panels>
+        </Tab.Group>
       )}
     </div>
   ) : null;
